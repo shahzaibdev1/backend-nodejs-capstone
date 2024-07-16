@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const pinoLogger = require('./logger');
+const secondChanceItemsRoutes = require("./routes/secondChanceItemsRoutes");
 
 const connectToDatabase = require('./models/db');
 const {loadData} = require("./util/import-mongo/index");
@@ -54,6 +55,8 @@ app.use((err, req, res, next) => {
     console.error(err);
     res.status(500).send('Internal Server Error');
 });
+
+app.use('/api/secondchance/items', secondChanceItemsRoutes);
 
 app.get("/",(req,res)=>{
     res.send("Inside the server")
